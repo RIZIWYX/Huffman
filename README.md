@@ -24,6 +24,7 @@ L'objectif : produire un format binaire compact dans lequel les caractères les 
 - [Architecture](#architecture)
 - [Format du fichier compressé](#format-du-fichier-compressé)
 - [Compilation](#compilation)
+- [Télécharger](#télécharger)
 - [Utilisation](#utilisation)
 - [Tests](#tests)
 - [Ce que ce projet m'a appris](#ce-que-ce-projet-ma-appris)
@@ -147,6 +148,18 @@ make clean
 
 # Archive de rendu
 make dist                      # produit Huffman.tar.gz
+```
+
+---
+
+## Télécharger
+
+Les deux exécutables Linux x86-64 sont dans la [release v1.0.0](https://github.com/RIZIWYX/Huffman/releases/tag/v1.0.0) :
+
+```bash
+chmod +x hcompress-linux-x86_64 unhcompress-linux-x86_64
+./hcompress-linux-x86_64 source.txt compresse.bin
+./unhcompress-linux-x86_64 compresse.bin restaure.txt
 ```
 
 ---
