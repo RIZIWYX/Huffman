@@ -48,15 +48,15 @@ Concrètement, on construit un **arbre binaire** dont les feuilles portent les c
 
 Mesures réelles obtenues avec `make test` :
 
-| Fichier | Taille source | Taille compressée | Ratio |
-|---|---:|---:|---:|
-| `empty.txt` (vide) | 0 o | 2 o | — |
-| `one.txt` (1 caractère) | 1 o | 3 o | — |
-| `rep.txt` (10 000 × `A`) | 10 000 o | 1 253 o | 13 % |
-| `lesmiserables.txt` (texte) | 3 088 841 o | 1 701 162 o | 55 % |
-| `hcompress` (binaire) | — | — | round-trip OK |
+| Fichier | Taille source | Taille compressée | Taille restante | Gain |
+|---|---:|---:|---:|---:|
+| `empty.txt` (vide) | 0 o | 2 o | — | — |
+| `one.txt` (1 caractère) | 1 o | 3 o | — | — |
+| `rep.txt` (10 000 × `A`) | 10 000 o | 1 253 o | 13 % | 87 % |
+| `lesmiserables.txt` (texte) | 3 088 841 o | 1 701 162 o | 55 % | 45 % |
+| `hcompress` (binaire) | — | — | — | round-trip OK |
 
-Le ratio de ~55 % sur du texte ASCII correspond à ce qu'on attend d'un Huffman par octet (sans modélisation d'ordre supérieur).
+Le gain de ~45 % sur du texte ASCII (le fichier compressé fait ~55 % de la taille d'origine) correspond à ce qu'on attend d'un Huffman par octet (sans modélisation d'ordre supérieur).
 
 ---
 
@@ -228,7 +228,7 @@ Un décompresseur lit un fichier **fourni par un tiers** et reconstruit des stru
 
 ## Limites connues
 
-- **Huffman par octet uniquement** : pas de modélisation d'ordre supérieur (digrammes, etc.), donc le ratio reste limité (~55 % sur du texte) comparé à des algorithmes modernes (LZ, arithmétique).
+- **Huffman par octet uniquement** : pas de modélisation d'ordre supérieur (digrammes, etc.), donc le gain reste limité (~45 % sur du texte) comparé à des algorithmes modernes (LZ, arithmétique).
 - **Deux passes obligatoires** : impossible de compresser depuis `stdin` (voir restriction ci-dessus).
 - **Arbre limité à 257 feuilles** (256 octets + CASPER) : c'est suffisant pour des fichiers d'octets, mais le code ne gère pas d'alphabet plus large.
 - **Pas de vérification d'intégrité** : aucun checksum n'est stocké, donc une corruption silencieuse du fichier compressé n'est pas détectée en tant que telle (elle produit une sortie erronée ou une erreur de décodage).
